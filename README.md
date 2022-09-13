@@ -19,6 +19,9 @@ For web service:
 <br>2. Run service with:
 
 `uvicorn app:app --port 1234 --reload `
+<br>
+3. Change the url of the webhook if necessary.
+.env > WEBHOOK
 ### Actions enables:
 #### To add new data:
 <br>
