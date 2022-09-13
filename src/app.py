@@ -47,3 +47,12 @@ async def get_currency_value(currency_name:str, date:str, db: Session = Depends(
     if db_currency:
         return utility.get_currency_value(db,date, db_currency.id )
     return {"detail":"Currency not exists"}
+
+@app.get('/currency/value/all/{currency_name}')
+async def get_all_currency_value(currency_name:str, date:str, db: Session = Depends(get_db)):
+    # Search currency by name, if exists, search all referencial value by current_id and date.
+    db_currency = utility.get_currency(db, currency_name=currency_name.upper())
+
+    if db_currency:
+        return utility.get_all_currency_value(db,date, db_currency.id )
+    return {"detail":"Currency not exists"}
