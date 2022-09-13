@@ -12,13 +12,34 @@ def get_currency(db:Session, currency_name:str):
 
 """
 Function to get last currencyvalue from database
+first time simulate a external consult
     - db: enable session db
     - date: date to filter currency value
     - currency_id: id of currency to search
     return: CurrencyValue object.
 """
 def get_currency_value(db:Session, date:str, currency_id):
-    
+    # Simulation to external webhook
+    import requests, os
+    from dotenv import load_dotenv
+    load_dotenv()
+    # get url from enviroment file
+    url= os.getenv('WEBHOOK')
+    data = {
+        'local':'USD',
+        'foreign':'EUR',
+        'date':'13-09-2022',
+        'value':1233
+    }
+    # get info using get method
+    response = requests.get(('%s/local=%s&foreign=%s&date=%s&value=%i'%(url,data['local'],data['foreign'], data['date'],data['value'])))
+    if response.status_code==200:
+        print('response Ok with get')
+    # get info using post method
+    response = requests.post(url,data)
+    if response.status_code==200:
+        print('response Ok with post')
+    # return value from database 
     return db.query(models.CurrencyValue).filter(models.CurrencyValue.currency_id==currency_id, models.CurrencyValue.date == date).first()
 
 """
