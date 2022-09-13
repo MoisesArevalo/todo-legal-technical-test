@@ -1,24 +1,10 @@
 from sqlalchemy.orm import Session
 import models, schema
-"""
-Function to get currency from database
-    - db: enable session db
-    - currency_name: Name of currency to search
-    return: Currency object.
-"""
-def get_currency(db:Session, currency_name:str):
-    print('++',currency_name)
-    return db.query(models.Currency).filter(models.Currency.currency_name==currency_name).first()
 
 """
-Function to get last currencyvalue from database
-first time simulate a external consult
-    - db: enable session db
-    - date: date to filter currency value
-    - currency_id: id of currency to search
-    return: CurrencyValue object.
+Simulation to external webhook call
 """
-def get_currency_value(db:Session, date:str, currency_id):
+def external_webhook_call():
     # Simulation to external webhook
     import requests, os
     from dotenv import load_dotenv
@@ -39,6 +25,26 @@ def get_currency_value(db:Session, date:str, currency_id):
     response = requests.post(url,data)
     if response.status_code==200:
         print('response Ok with post')
+
+"""
+Function to get currency from database
+    - db: enable session db
+    - currency_name: Name of currency to search
+    return: Currency object.
+"""
+def get_currency(db:Session, currency_name:str):
+    return db.query(models.Currency).filter(models.Currency.currency_name==currency_name).first()
+
+"""
+Function to get last currencyvalue from database
+first time simulate a external consult
+    - db: enable session db
+    - date: date to filter currency value
+    - currency_id: id of currency to search
+    return: CurrencyValue object.
+"""
+def get_currency_value(db:Session, date:str, currency_id):
+    external_webhook_call()
     # return value from database 
     return db.query(models.CurrencyValue).filter(models.CurrencyValue.currency_id==currency_id, models.CurrencyValue.date == date).first()
 
