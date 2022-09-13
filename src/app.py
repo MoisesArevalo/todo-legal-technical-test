@@ -17,7 +17,7 @@ def get_db():
     finally:
         db.close()
 
-@app.post("/currency/")
+@app.post("/currency")
 async def create_currency(currency: schema.Currency, db: Session = Depends(get_db)):
     # Search currency, if exist not create again.
     db_currency = utility.get_currency(db, currency_name=currency.name)
