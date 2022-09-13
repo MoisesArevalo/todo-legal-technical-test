@@ -3,29 +3,55 @@ For sql database:
 * Type: relational
 * SqlLite
 * Squema that I used.
+![alt sql-squema](/docs/sql.png "Sql Squema")
 
 For web service:
 * Language: python
 * Framework: fastAPI
 * Logic diagram proposed:
 
+![alt web service diagram](/docs/WS.png "WS diagram")
 ## Instructions:
 <br>
-To migrate sql database, please run the next cli-command:
-
-`python migrate ....`
 
 ### Actions enables:
-To add new data:
+#### To add new data:
 <br>
-POST: api/v1/
+- currency 
+
+POST: /currency
+
 {
-    "value",
-    "local-currency",
-    "foreign-currency"
+    "name":""
 }
 
-To get data
+- currency value
+
+POST: /currency/value
+
+{
+    "date":"",
+    "value":"",
+    "name":""
+}
+
+#### To get data
 <br>
-GET: /api/v1/{id}
+- currency
+
+GET: /currency/value/{currency_name}
+
+example: /currency/value/eur
+
+- unique currency value
+
+GET: /currency/value/currency_name?date=dd/mm/yyyy
+
+example: /currency/value/eur?date=09/09/2022{id}
+
+- all currency value
+
+GET: /currency/value/all/currency_name?date=dd/mm/yyyy
+
+example: /currency/value/all/eur?date=09/09/2022{id}
 
