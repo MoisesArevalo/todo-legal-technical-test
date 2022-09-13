@@ -13,7 +13,12 @@ For web service:
 ![alt web service diagram](/docs/WS.png "WS diagram")
 ## Instructions:
 <br>
+1. Install all dependencies (I used python 3.10)
 
+`pip install -r requirements.txt`
+<br>2. Run service with:
+
+`uvicorn app:app --port 1234 --reload `
 ### Actions enables:
 #### To add new data:
 <br>
